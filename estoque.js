@@ -11,6 +11,13 @@ export function getEstoque()
 }
 
 export function transacaoNoEstoque(Origem, Destino, fruta, quantidade) {
+    if (!estoque.joao) {
+        estoque.joao = [];
+    }
+
+    if (!estoque.maria) {
+        estoque.maria = [];
+    }
 
     if (Origem === "pomar" ) {
         dePomarParaPessoa(Destino, quantidade, fruta);
@@ -93,3 +100,8 @@ function dePessoaParaPessoa(origem, destino, quantidade, fruta) {
     monteD.quantidade -= quantidadeEnviada;
     monteR.quantidade += quantidadeEnviada;
 }
+
+export function limpaEstoque()
+{
+   estoque ={};
+};

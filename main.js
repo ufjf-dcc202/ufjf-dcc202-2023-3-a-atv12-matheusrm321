@@ -1,9 +1,11 @@
-import { transacao, getEstoque } from "./estoque.js";
+import { transacaoNoEstoque, getEstoque, limpaEstoque } from "./estoque.js";
 
 document.entrada.addEventListener('submit', leFormulario)
 
-const olJoao = document.querySelector("#olJoao");
-const olMaria = document.querySelector("#olMaria");
+const olJoao = document.querySelector("#joao");
+const olMaria = document.querySelector("#maria");
+const remove = document.querySelector("#Limpar")
+remove.addEventListener('click', limparEstoque);
 
 atualizaTela();
 
@@ -18,8 +20,10 @@ function leFormulario(event)
     console.log(`Solicitado: ${origem} doa ${quantidade} ${fruta} para ${destino}`);
     //document.entrada.submit();
 
-    transacao(origem, destino, quantidade, fruta);
+    transacaoNoEstoque(origem, destino, fruta, quantidade);
     atualizaTela();
+
+}
 
     function atualizaTela()
     {
@@ -32,12 +36,20 @@ function leFormulario(event)
     function preencheListaPessoa(pessoa, lista)
     {
         lista.innerHTML = "";
-        for(let i = 0; i < pessoa.length;i++){
-            const monte = pessoa[i];
-            const eLi = document.createElement('li');
-            eLi.innerText = `${monte.tipo}: ${monte.qtd}`;
-            lista.append(eLi);
-        }   
+        if(pessoa){
+            for(let i = 0; i < pessoa.length;i++){
+                const monte = pessoa[i];
+                const eLi = document.createElement('li');
+                eLi.innerText = `${monte.tipo}: ${monte.quantidade}`;
+                lista.append(eLi);
+            }  
+        }
     }
 
-}
+    function limparEstoque()
+    {
+        limpaEstoque();
+        atualizaTela();
+    }
+
+    
